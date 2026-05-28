@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %} Chat{% endblock %}
+
+
+{% block page_content %}
+    <div class="container">
+        <div id="message-log">
+            <p>...</p>
+            <input type="text" id="UsernameInput"></div>
+        <button class="btn-secondary" id="TestBtn">Go!</button>
+    </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+        const username = `{{ username }}`;
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+            integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let socket = io.connect(location.protocol + "//" + document.domain + ":" + location.port);
+
+
+            socket.on("message", data => {
+                const p = document.createElement('p');
+                const br = document.createElement('br');
+                const span = document.createElement('span');
+
+                p.innerHTML = (username +": " + data.msg);
+                document.querySelector('#message-log').append(p);
+            });
+
+            document.getElementById('TestBtn').addEventListener("click", () => {
+                let text = document.getElementById('UsernameInput').value
+                socket.send({
+                    "msg": text,
+                    'username': username
+                })
+            });
+
+            socket.on('custom_event', data => {
+                console.log(data);
+            })
+
+        });
+
+    </script>
+{% endblock %}

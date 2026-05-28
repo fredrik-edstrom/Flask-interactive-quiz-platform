@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Detail Question{% endblock %}
+
+{% block page_content %}
+    <h1>Detail Question</h1>
+    <hr>
+    <table>
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Correct Answer</th>
+            {% for wrong_answer in question.wrong_answers %}
+                <th>Wrong answer #{{ loop.index }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ question.description }}</td>
+            <td>{{ question.correct_answer }}</td>
+            {% for wrong_answer in question.wrong_answers %}
+                <td>{{ wrong_answer }}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

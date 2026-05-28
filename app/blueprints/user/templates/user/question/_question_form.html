@@ -1,0 +1,27 @@
+<form class="mx-3"
+      method="post"
+      novalidate>
+    {{ form.csrf_token }}
+
+    <div class="form-label">
+        {{ form.description.label }}
+    </div>
+    {{ form.description(class="form-control", placeholder="The question") }}
+    {{ render_errors(form.description) }}
+
+    <div class="form-label">
+        {{ form.correct_answer.label }}
+    </div>
+    {{ form.correct_answer(class="form-control") }}
+    {{ render_errors(form.correct_answer) }}
+
+    <div class="form-label">
+        {{ form.wrong_answers.label }}
+    </div>
+    {% for wrong_answer in form.wrong_answers %}
+        {{ wrong_answer(class="form-control") }}
+        {{ render_errors(wrong_answer) }}
+    {% endfor %}
+
+    {{ form.submit(class="btn btn-success mt-3") }}
+</form>

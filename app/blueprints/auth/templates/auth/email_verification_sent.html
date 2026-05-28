@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Verify Email{% endblock %} - Pyhoot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='libs/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block meta %}{% endblock %}
+    {% block additional_css %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="verified_text">
+        <h4>A verification link has been sent to your Email account.</h4>
+    </div>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Verify Email{% endblock %} - Pyhoot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='libs/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block meta %}{% endblock %}
+    {% block additional_css %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="verified_text">
+        <h4>Please verify your email before logging in.</h4>
+        <h6 style="color: #888888">If you didn't get a mail or the link has expired click on resend</h6>
+        <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+
+        {{ form.resend_button(class="button") }}
+    </form>
+    </div>
+
+
+</div>
+</body>
+</html>

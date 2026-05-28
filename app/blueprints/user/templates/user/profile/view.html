@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block page_content %}
+
+    <div class="container">
+
+        <div class="profile_card">
+            <h1 class="profile_header"> {{ username }} </h1>
+
+            <div class="avatar">
+{#                <div class="default_avatar">#}
+                    <img src="{{ current_user.avatar }}" alt="Default Avatar" width="200" height="250" id="cen">
+{#                </div>#}
+            </div>
+
+            <div class="profile_info">
+                <div class="text_container" id="profile_container">
+                    <h3>Profile</h3>
+
+                    <div class="profile_section">
+                        <span>Username:</span>
+                        <span>{{username }}</span>
+                    </div>
+
+                    <div class="profile_section">
+                        <span>Name:</span>
+                        <span>{{ current_user.first_name }}</span>
+                    </div>
+
+                    <div class="profile_section">
+                        <span>Country:</span>
+                        <span>{{ current_user.country }}</span>
+                    </div>
+
+                    <div class="profile_section">
+                        <span>Member since:</span>
+
+                    </div>
+                </div>
+
+                <a class="_btn" href="{{ url_for("auth.update", username=current_user.username) }}">Edit Profile</a>
+
+            </div>
+
+            <div class="my_quizzes">
+
+                <div class="text_container" id="quiz_container">
+                    <h3>Quizzes</h3>
+
+                    {% for quiz in quizzes %}
+                        <div class="quiz_card">
+                            <h4>{{ quiz.title }} - {{ (quiz.questions|length if quiz.questions else "0") }}
+                                Questions</h4>
+                            <a class="card_a" href="{{ url_for("game.start_game", quiz_id=quiz.id) }}">Play!</a>
+                            {% if current_user.username == username %}
+                            <a class="card_a" href="{{ url_for("user.detail_quiz_get", quiz_id=quiz.id) }}">Edit Quiz</a>
+                            {% endif %}
+
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+                <a class="_btn" href="{{ url_for("user.create_quiz_get") }}">Create Quiz</a>
+
+            </div>
+        </div>
+
+{% endblock %}

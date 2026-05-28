@@ -1,0 +1,499 @@
+html,
+body {
+    height: 100vh;
+    background: #202020 !important;
+    font-family: "Fira", sans-serif;
+    color: #dcddde;
+}
+
+.container {
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0d6efd;
+    margin-top: 1rem;
+
+}
+
+form {
+    padding-top: 10px;
+    font-size: 14px;
+    margin-top: 30px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form {
+    width: 760px;
+    height: 540px;
+    margin: 20px;
+
+    background: #2c2c2c !important;
+    border-radius: 20px !important;
+}
+
+.login-form {
+    width: 760px;
+    height: 450px;
+    margin: 20px;
+
+    background: #2c2c2c !important;
+    border-radius: 20px !important;
+}
+
+.edit-form {
+    width: 760px;
+    height: 600px;
+    margin: 20px;
+
+    background: #2c2c2c !important;
+    border-radius: 20px !important;
+}
+
+
+#UsernameInput, #PasswordInput, #CountryInput, #FirstNameInput, #NewPasswordInput, #RepeatPasswordInput, #EmailInput {
+    background: #2c2c2c !important;
+    border: 2px solid #454545;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    color: #999;
+}
+
+#UsernameInput:focus, #PasswordInput:focus {
+    outline: none;
+    border: none;
+    background: #2c2c2c;
+    margin-bottom: 25px;
+    color: #999;
+}
+
+.card title {
+    font-weight: 900;
+    padding-top: 20px;
+}
+
+.btn {
+    transform: translateY(10px) !important;
+    font-size: 14px;
+    border-radius: 10px;
+
+}
+
+.signup {
+    text-align: center;
+    padding-top: 25px;
+
+}
+
+h1, h4 {
+    color: #7f6df2;
+    font-weight: 900;
+}
+
+.btn-primary {
+    display: block;
+    padding: 0 20px;
+    height: 40px;
+    background-color: #7f6df2;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: center;
+    line-height: 40px;
+    flex-grow: 1;
+
+}
+
+.btn-primary:hover {
+    background-color: #483699 !important;
+
+}
+
+/* Toast notifications */
+.toast-overlay {
+    z-index: 999999 !important;
+}
+
+/* HEADER TEMPLATE */
+.primary_header {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Fira, sans-serif;
+}
+
+.nav_container {
+    max-width: 1280px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    padding: 16px 32px;
+    border-bottom: 3px solid #6f42c1;
+}
+
+.nav_header {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.menu {
+    display: flex;
+    flex: 1 1;
+    justify-content: flex-end;
+    margin: 0 -16px;
+}
+
+.menu a {
+    color: #999;
+    margin: 0 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 99px;
+}
+
+.menu a:hover {
+    background-color: #7f6df2;
+}
+
+/* END OF HEADER */
+
+
+/*START PROFILE */
+
+.profile_card {
+    width: 50vw;
+    height: 75vh;
+    font-family: "Fira", sans-serif;
+
+    background: #2c2c2c !important;
+    padding: 2rem;
+    color: #999;
+
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 10% 35% 35%;
+    border-radius: 15px;
+
+    min-width: 600px;
+    min-height: 500px;
+
+}
+.search_card{
+    width: 50vw;
+    height: 75vh;
+    font-family: "Fira", sans-serif;
+
+    background: #2c2c2c !important;
+    padding: 2rem;
+    color: #999;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr 2fr 1fr;
+     grid-template-rows: 10% 5% 10% 65%;
+    border-radius: 15px;
+    min-width: 600px;
+    min-height: 500px;
+
+}
+.search_header{
+    grid-row:1 / 2;
+    grid-column: 2 / 3;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+
+
+}
+.search_nav{
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    display: flex;
+}
+
+#quiz-search-container, #user-search-container{
+    grid-row: 3 / 4;
+    grid-column: 2 /3;
+}
+
+.profile_header {
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
+
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+
+
+}
+
+.avatar {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+
+    /*border: #483699 solid 1px;*/
+    /*border-radius: 10px;*/
+
+    align-self: end;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+
+.profile_info {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+
+    border: #483699 solid 1px;
+    box-shadow: rgba(0, 0, 0, 0.75) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+    background: #1f1f1f !important;
+    border-radius: 10px;
+
+    height: 100%;
+    width: 100%;
+
+
+}
+
+.my_quizzes {
+
+    grid-row: 2 / 4;
+
+    border: #483699 solid 1px;
+    border-radius: 10px;
+    background: #1f1f1f !important;
+    box-shadow: rgba(0, 0, 0, 0.75) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+
+    height: 100%;
+    width: 100%;
+
+
+}
+
+.profile_highscores {
+
+    grid-row: 2 / 4;
+
+    border: #483699 solid 1px;
+    border-radius: 10px;
+    background: #1f1f1f !important;
+    box-shadow: rgba(0, 0, 0, 0.75) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+
+    height: 100%;
+    width: auto;
+}
+
+.text_container {
+    text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 90%;
+
+
+}
+
+#profile_container {
+    height: 80%;
+    width: auto;
+
+}
+
+
+.edit_profile_btn {
+    transform: translateX(50%);
+    width: 50%;
+    font-size: 1vw;
+}
+
+._btn {
+    transform: translateX(50%);
+    width: 50%;
+
+    font-size: 1vw;
+    color: #999;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.show_leaderboard_btn {
+    transform: translateX(50%);
+    width: 50%;
+    font-size: 1vw;
+}
+
+.quiz_card {
+    background-color: #2c3034;
+    border: #483699 solid 1px;
+    border-radius: 15px !important;
+    flex-direction: row;
+    padding: 10px;
+    margin: 1em;
+}
+
+.card_a {
+    color: #999;
+    margin: 0 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    border-radius: 99px;
+
+}
+
+/* Imported Hover-effect */
+._btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #000;
+
+    -webkit-transform: scaleX(.3);
+    transform: scaleX(.3);
+    opacity: 0;
+    transition: all .3s
+}
+
+._btn:hover::before {
+    opacity: 1;
+    background-color: #483699;
+
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    transition: -webkit-transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity .4s;
+    transition: transform .6s cubic-bezier(.08, .35, .13, 1.02), opacity
+}
+
+/* END OF PROFILE */
+
+/*EDIT PROFILE*/
+
+.edit_card {
+    width: 50vw;
+    height: 90vh;
+    margin-top: 10%;
+    font-family: "Fira", sans-serif;
+
+    background: #2c2c2c !important;
+    padding: 2rem;
+    color: #999;
+
+    /*border: #483699 solid 1px;*/
+    border-radius: 10px;
+    display: grid;
+
+    gap: 1em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 10% 45% 45%;
+    grid-template-areas:
+            "header header"
+            "update random"
+            "update random";
+    min-width: 600px;
+    min-height: 500px;
+
+}
+
+.edit_header {
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    grid-area: header;
+
+}
+
+.random_avatar {
+    grid-area: random;
+    margin-bottom: 10%;
+    align-self: end;
+
+}
+
+.update {
+    grid-area: update;
+    margin-bottom: 10%;
+    align-self: end;
+
+}
+
+#center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*END OF EDIT PROFILE*/
+
+/*VERIFY EMAIL*/
+
+.image_grid {
+    display: grid;
+    gap: 2em;
+    grid-template-areas:
+            "picture"
+            "v_text";
+}
+
+.verified_text {
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 14px 28px, rgba(0, 0, 0, 0.18) 0px 10px 10px;
+    background-color: #2a2a2a;
+    border-radius: 5px;
+    padding: 35px;
+    grid-area: v_text;
+
+}
+
+.button {
+    background-color: darkgreen;
+    border: none;
+    color: #C8C8C8;
+    border-radius: 3px;
+    padding: 15px 35px;
+    text-align: center;
+    align-self: center;
+    margin: 25px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.12);
+}
+
+.button:hover {
+    background-color: green;
+    color: white;
+}
+
+.picture {
+    align-self: end;
+    margin-left: auto;
+    margin-right: auto;
+    grid-area: picture;
+
+}
+
+/*END OF VERIFY EMAIL*/

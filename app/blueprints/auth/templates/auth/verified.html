@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Verified{% endblock %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="image_grid">
+            <img class="picture" src="{{ url_for('static', filename='images/check.png') }}"
+                 alt="Default Avatar" width="150" height="150">
+            <div class="verified_text">
+                <h4>Your Email Address has been verified. Thanks!</h4>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock %}

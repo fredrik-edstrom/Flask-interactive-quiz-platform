@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block title %}Play{% endblock %}
+{% block additional_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+    <!-- QUESTION WINDOW! -->
+    <div class="quiz-head">
+
+        <div class="question_container" id="question_container">
+
+            <div class="progressField"><h1>{{ game.quiz_title }}</h1></div>
+            <div id="questionField"><!-- update on new Question --></div>
+
+            <!-- Insert DIV - answer_box here with JS -->
+            <button id="next_btn">Next Question</button>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+    <script type="text/javascript">
+
+        const game_id = "{{game.game_id}}";
+        const question_field = document.getElementById("questionField");
+        const question_screen = document.querySelector(".question_container")
+
+        document.addEventListener("DOMContentLoaded", () => {
+            get_current_state()
+        });
+        document.getElementById('next_btn').addEventListener("click", () => {
+            get_next_question(game_id)
+
+        })
+
+        function get_current_state() {
+            return fetch("/game/current/{{game.game_id}}", {
+
+                headers: new Headers({"content-type": "application/json"}),
+                method: "POST",
+                body: JSON.stringify(game_id),
+            })
+                .then(validate_promise)
+                .then(response => response.json())
+                .then(update_question);
+        }
+
+        function validate_promise(response) {
+            if (response.status >= 200 && response.status < 300) {
+                return Promise.resolve(response)
+            } else {
+                return Promise.reject("Something went wrong...")
+            }
+        }
+
+
+        function update_question(data) {
+            clearScreen()
+            if (data.has_finished) {
+                let next = document.getElementById("next_btn")
+                let quit = document.createElement("btn");
+
+                question_field.innerText = "Game is over, Your score is: " + data.current_score;
+
+                quit.className = "quit_btn"
+                quit.innerHTML = "<a href=/leaderboard>Leave Game</a>"
+                question_screen.appendChild(quit)
+
+                next.remove();
+
+            } else {
+                question_field.innerText = data.question_description;
+
+
+                for (let choice of data.question_choices) {
+                    let div = document.createElement("div");
+                    div.className = "answer_box"
+                    div.innerText = choice
+
+                    question_screen.appendChild(div);
+                }
+            }
+            document.querySelectorAll(".answer_box").forEach(
+                box => {
+                    box.addEventListener("click", () => {
+
+                        let selection;
+                        selection = box.innerText
+                        sendData(selection, game_id);
+
+                    });
+                });
+        }
+
+        function sendData(user_input) {
+            fetch("/game/answer/{{game.game_id}}", {
+
+                headers: new Headers({"content-type": "application/json"}),
+                method: "POST",
+                body: JSON.stringify({value: user_input}),
+            })
+                .then(response => response.json())
+                .then(response => checkAnswer(response.correct_answer));
+        }
+
+
+        function get_next_question(game_id) {
+            fetch("/game/next/{{ game.game_id }}", {
+
+                headers: new Headers({"content_type": "application/json"}),
+                method: "POST",
+                body: JSON.stringify({value: game_id}),
+            })
+                .then(response => response.json())
+                .then(update_question)
+        }
+
+
+        function checkAnswer(data) {
+            document.querySelectorAll('.answer_box').forEach(
+                box => {
+                    box.classList.add('disabled')
+                    if (data == box.innerText) {
+                        box.style.backgroundColor = "darkgreen"
+                    } else {
+                        box.style.backgroundColor = "darkred"
+                    }
+                })
+        }
+
+        function clearScreen() {
+            document.querySelectorAll('.answer_box').forEach(box => {
+                box.remove();
+            })
+        }
+
+    </script>
+{% endblock %}

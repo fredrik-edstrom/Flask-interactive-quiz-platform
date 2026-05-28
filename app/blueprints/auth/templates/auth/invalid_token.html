@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Verify Email{% endblock %} - Pyhoot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='libs/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block meta %}{% endblock %}
+    {% block additional_css %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="image_grid">
+
+        <div class="verified_text">
+            <h4>The confirmation link is invalid or has expired...</h4>
+        </div>
+        <img class="picture" src="{{ url_for('static', filename='images/red_x.png') }}"
+             alt="Default Avatar" width="150" height="150">
+    </div>
+</div>
+</body>
+</html>
+

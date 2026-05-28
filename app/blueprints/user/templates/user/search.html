@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block page_content %}
+
+    <div class="container">
+    <div class="search_card">
+            <h1 class="search_header">Search</h1>
+
+            <!-- Nav Tabs -->
+                <div class="search_nav">
+                    <span><a class="nav-link active disabled" id="quiz-search-link" href="#">Search for Quizzes</a></span>
+                    <span><a class="nav-link" id="user-search-link" href="#">Search for Users</a></span>
+                </div>
+
+            <!-- Quiz Tab -->
+            <div id="quiz-search-container">
+                <h2>Search for Quizzes</h2>
+
+                <form action="{{ url_for('user.search') }}" method="post"
+                      id="quiz-search-form">
+                    <label for="title" hidden></label>
+                    <input class="form-control" placeholder="Search by title"
+                           type="text" id="title" name="title" autocomplete="off">
+                    <button class="btn btn-outline-primary" id="searchQuizButton"
+                            type="button">Search
+                    </button>
+                </form>
+
+                <div class="text-center mt-5" id="quiz-search-results"></div>
+
+            </div>
+
+            <!-- User Tab -->
+            <div class="visually-hidden"
+                 id="user-search-container">
+                <h2>Search for Users</h2>
+
+                <form action="{{ url_for('user.search') }}" method="post"
+                      id="user-search-form">
+                    <label for="username" hidden></label>
+                    <input class="form-control" placeholder="Search by username"
+                           type="text" id="username" name="username" autocomplete="off">
+                    <button class="btn btn-outline-primary" id="searchUserButton"
+                            type="button">Search
+                    </button>
+                </form>
+
+                <div class="text-center mt-5" id="user-search-results"></div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+    <script type="text/javascript">
+        let quizLink = document.getElementById("quiz-search-link");
+        let userLink = document.getElementById("user-search-link");
+        let quizContainer = document.getElementById("quiz-search-container");
+        let userContainer = document.getElementById("user-search-container");
+
+        let titleURL = "{{ url_for('user.detail_quiz_get', quiz_id='') }}";
+        let quizSearchInput = document.getElementById("title");
+        let quizSearchButton = document.getElementById("searchQuizButton");
+        let quizzesContainer = document.getElementById("quiz-search-results");
+
+        let profileURL = "{{ url_for('user.view_profile', username='') }}";
+        let userSearchInput = document.getElementById("username");
+        let userSearchButton = document.getElementById("searchUserButton");
+        let usernamesContainer = document.getElementById("user-search-results");
+
+        function onNavTabPressed() {
+            quizLink.classList.toggle("active");
+            quizLink.classList.toggle("disabled");
+
+            userLink.classList.toggle("active");
+            userLink.classList.toggle("disabled");
+
+            quizContainer.classList.toggle("visually-hidden");
+            userContainer.classList.toggle("visually-hidden");
+
+            quizzesContainer.innerHTML = "";
+            usernamesContainer.innerHTML = "";
+        }
+
+        function searchForQuizzes() {
+            let searchForm = new FormData(document.getElementById("quiz-search-form"));
+            fetch("{{ url_for('api.search_for_quizzes') }}", {
+                method: "POST",
+                body: searchForm
+            })
+                .then(response => response.json())
+                .then(response => {
+                    quizzesContainer.innerHTML = "";
+                    listQuizzes(response);
+                });
+        }
+
+        function listQuizzes(quizzes) {
+            if (quizzes.length < 1) return;
+
+            for (let quiz of quizzes) {
+                let child = document.createElement("p");
+                child.innerHTML = `<a href="${titleURL}${quiz.id}">${quiz.title}</a>`;
+                quizzesContainer.appendChild(child);
+            }
+        }
+
+        function searchForUsernames() {
+            let searchForm = new FormData(document.getElementById("user-search-form"));
+            fetch("{{ url_for('api.search_for_usernames') }}", {
+                method: "POST",
+                body: searchForm
+            })
+                .then(response => response.json())
+                .then(response => {
+                    usernamesContainer.innerHTML = "";
+                    listUsernames(response);
+                });
+        }
+
+        function listUsernames(usernames) {
+            if (usernames.length < 1) return;
+
+            for (let username of usernames) {
+                let child = document.createElement("p");
+                child.innerHTML = `<a href="${profileURL}${username}">${username}</a>`;
+                usernamesContainer.appendChild(child);
+            }
+        }
+
+        function registerEventListeners() {
+            quizLink.addEventListener("click", () => onNavTabPressed());
+            userLink.addEventListener("click", () => onNavTabPressed());
+
+            quizSearchButton.onclick = () => searchForQuizzes();
+            userSearchButton.onclick = () => searchForUsernames();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => registerEventListeners());
+    </script>
+{% endblock %}

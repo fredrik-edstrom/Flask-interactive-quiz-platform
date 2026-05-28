@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "macros/render_error.html" import render_errors %}
+
+{% block title %}Create Quiz{% endblock %}
+
+{% block page_content %}
+    <h1>Create Quiz</h1>
+    <hr>
+    {% include "user/quiz/_quiz_form.html" %}
+{% endblock %}

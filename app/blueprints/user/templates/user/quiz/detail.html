@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Detail Quiz{% endblock %}
+
+{% block page_content %}
+    <h1>Detail Quiz</h1>
+    <hr>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ quiz.id }}</td>
+            <td>{{ quiz.title }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul>
+        <li><a href="{{ url_for('user.edit_quiz_get', quiz_id=quiz.id) }}">Edit Quiz</a></li>
+        <li><a href="{{ url_for('user.delete_all_questions_in_quiz', quiz_id=quiz.id) }}">Delete All Questions</a></li>
+        <li><a href="{{ url_for('user.delete_quiz', quiz_id=quiz.id) }}">Delete Quiz</a></li>
+    </ul>
+
+    <hr>
+    <h2>Questions</h2>
+    {% if quiz.questions %}
+        {% for question in quiz.questions %}
+            <hr>
+            <p>{{ question.description }}</p>
+            <p>
+                <a href="{{ url_for('user.detail_question_get', question_index=loop.index0, quiz_id=quiz.id) }}">Detail</a>&nbsp;
+                <a href="{{ url_for('user.edit_question_in_quiz_get', question_index=loop.index0, quiz_id=quiz.id) }}">Edit</a>&nbsp;
+                <a href="{{ url_for('user.delete_question_in_quiz', question_index=loop.index0, quiz_id=quiz.id) }}">Delete</a>
+            </p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No questions yet.</p>
+    {% endif %}
+
+    <p>
+        <a href="{{ url_for('user.create_question_get', quiz_id=quiz.id) }}">Create Question</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "macros/render_error.html" import render_errors %}
+
+{% block title %}Create Question{% endblock %}
+
+{% block page_content %}
+    <h1>Create Question</h1>
+    <hr>
+    {% include "user/question/_question_form.html" %}
+{% endblock %}

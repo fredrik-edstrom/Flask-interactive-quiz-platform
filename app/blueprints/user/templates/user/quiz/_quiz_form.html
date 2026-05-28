@@ -1,0 +1,13 @@
+<form class="mx-3"
+      method="post"
+      novalidate>
+    {{ form.csrf_token }}
+
+    <div class="form-label">
+        {{ form.title.label }}
+    </div>
+    {{ form.title(class="form-control", placeholder="Title of the Quiz") }}
+    {{ render_errors(form.title) }}
+
+    {{ form.submit(class="btn btn-success mt-3") }}
+</form>
